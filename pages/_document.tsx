@@ -1,7 +1,7 @@
 // pages/_document.tsx
 import Document, { Html, Head, Main, NextScript, DocumentContext } from 'next/document';
 import createEmotionServer from '@emotion/server/create-instance';
-import createEmotionCache from '../shared/lib/createEmotionCache';
+import createEmotionCache from '@shared/shared/lib/createEmotionCache';
 import { AppType } from 'next/app';
 import { MyAppProps } from './_app';
 

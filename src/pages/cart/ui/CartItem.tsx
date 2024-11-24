@@ -7,7 +7,7 @@ interface CartProduct {
 
 const CartItem = ({ item }: { item: CartProduct }) => {
   return (
-    <div className="cartItem">
+    <div>
       <h3>{item.name}</h3>
       <span>{item.price} USD</span>
       <span>Quantity: {item.quantity}</span>
