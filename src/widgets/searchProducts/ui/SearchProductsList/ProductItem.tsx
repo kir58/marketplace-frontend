@@ -3,13 +3,21 @@ import { Card, CardMedia, CardContent, Typography, CardActions, Button, Box } fr
 import StarIcon from '@mui/icons-material/Star';
 import { SearchProductResponse } from '@shared/shared/model/products';
 import Link from 'next/link';
+import { $cart, addToCart } from '@shared/pages/cart/model/cartStore';
+import { useUnit } from 'effector-react';
 
 interface Props {
   product: SearchProductResponse;
 }
 
 export const ProductItem: React.FC<Props> = ({ product }) => {
-  console.log(product);
+  const cartItems = useUnit($cart);
+
+  const handleAddToCart = () => {
+    console.log(product, cartItems);
+    addToCart(product);
+  };
+
   return (
     <Card
       sx={{
@@ -20,10 +28,22 @@ export const ProductItem: React.FC<Props> = ({ product }) => {
       }}
     >
       {/* Изображение продукта */}
-      <CardMedia component="img" height="180" image={product.imageUrl} alt={product.name} />
+      <Typography component={Link} href={`/products/${product.id}`}>
+        <CardMedia component="img" height="180" image={product.imageUrl} alt={product.name} />
+      </Typography>
       {/* Основное содержимое */}
       <CardContent sx={{ flexGrow: 1 }}>
-        <Typography gutterBottom variant="h6" component="div">
+        <Typography
+          sx={{
+            color: 'inherit',
+            textDecoration: 'none',
+            ':hover': { color: (theme) => theme.palette.text.secondary },
+          }}
+          gutterBottom
+          variant="h6"
+          component={Link}
+          href={`/products/${product.id}`}
+        >
           {product.name}
         </Typography>
         <Typography variant="body2" color="text.secondary">
@@ -59,10 +79,10 @@ export const ProductItem: React.FC<Props> = ({ product }) => {
       </CardContent>
       {/* Кнопки действий закреплены внизу карточки */}
       <CardActions>
-        <Button size="small" color="primary">
+        <Button size="small" color="primary" onClick={handleAddToCart}>
           Add to Cart
         </Button>
-        <Button size="small" color="primary" component={Link} href={`/products/${product.id}`}>
+        <Button size="small" color="primary">
           View Details
         </Button>
       </CardActions>

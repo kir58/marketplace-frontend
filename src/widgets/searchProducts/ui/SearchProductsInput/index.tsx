@@ -22,11 +22,11 @@ export const SearchProductsInput: React.FC = () => {
 
   const handleSearchClick = (e: SyntheticEvent<HTMLFormElement, SubmitEvent>) => {
     e.preventDefault();
-
-    router.push(`/search?keyword=${searchTerm}`);
+    const normalizedSearchTerm = searchTerm.trim();
+    router.push(`/search?keyword=${normalizedSearchTerm}`);
 
     if (pathname === '/search') {
-      triggerSearch(searchTerm);
+      triggerSearch(normalizedSearchTerm);
     }
   };
 

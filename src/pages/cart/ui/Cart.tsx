@@ -1,39 +1,39 @@
-import { useState } from 'react';
-import CartItem from '@shared/pages/cart/ui/CartItem';
+import React from 'react';
+import { Typography, Button, Box, Divider, Stack, Container } from '@mui/material';
+
+import { useUnit } from 'effector-react';
+import { $cart, clearCart } from '../model/cartStore';
+import { CartItem } from '@shared/pages/cart/ui/CartItem';
 import { AppCustomBar } from '@shared/widgets/appBar/ui/AppBar';
-import * as React from 'react';
-import { Container } from '@mui/material';
 
-interface CartProduct {
-  id: string;
-  name: string;
-  price: number;
-  quantity: number;
-}
-
-export const Cart = () => {
-  const [cartItems, setCartItems] = useState<CartProduct[]>([
-    { id: '1', name: 'Product 1', price: 20.0, quantity: 1 },
-    { id: '2', name: 'Product 2', price: 30.0, quantity: 2 },
-  ]);
-
-  const total = cartItems.reduce((acc, item) => acc + item.price * item.quantity, 0);
-
+export const Cart: React.FC = () => {
+  const cartItems = useUnit($cart);
+  const total = cartItems.reduce((sum, { product, quantity }) => sum + product.price * quantity, 0);
+  console.log(cartItems);
   return (
-    <div>
+    <Stack gap={4}>
       <AppCustomBar />
       <Container maxWidth={false}>
-        <h1>Your Cart</h1>
-        <div>
-          {cartItems.map((item) => (
-            <CartItem key={item.id} item={item} />
-          ))}
-        </div>
-        <div>
-          <h2>Total: {total} USD</h2>
-        </div>
-        <button>Proceed to Checkout</button>
+        <Typography variant="h4" gutterBottom>
+          Shopping Cart
+        </Typography>
+        {cartItems.length > 0 ? (
+          <>
+            {cartItems.map((item) => (
+              <CartItem key={item.product.id} item={item} />
+            ))}
+            <Divider sx={{ my: 2 }} />
+            <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+              <Typography variant="h6">Total: ${total.toFixed(2)}</Typography>
+              <Button variant="contained" color="primary" onClick={() => clearCart()}>
+                Clear Cart
+              </Button>
+            </Box>
+          </>
+        ) : (
+          <Typography variant="body1">Your cart is empty.</Typography>
+        )}
       </Container>
-    </div>
+    </Stack>
   );
 };
