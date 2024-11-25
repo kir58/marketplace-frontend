@@ -13,7 +13,7 @@ import MailIcon from '@mui/icons-material/Mail';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import MoreIcon from '@mui/icons-material/MoreVert';
 import ShoppingBasketIcon from '@mui/icons-material/ShoppingBasket';
-import { SearchProductsInput } from '@shared/widgets/searchProducts';
+import { SearchProductsInput } from '@shared/features/searchProducts';
 import Link from 'next/link';
 
 export const AppCustomBar = () => {

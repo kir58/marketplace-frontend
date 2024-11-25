@@ -1,5 +1,5 @@
 import axios, { AxiosResponse } from 'axios';
-import { SearchProductResponse } from '@shared/shared/model/products';
+import { SearchProductResponse } from '@shared/shared/model';
 
 const API_URL = 'http://localhost:8080/api/products'; // Замените на URL вашего API
 

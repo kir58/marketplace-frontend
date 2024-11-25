@@ -1,4 +1,4 @@
-import { SearchProductResponse } from '@shared/shared/model/products';
+import { SearchProductResponse } from '@shared/shared/model';
 import { Box, Button, Card, CardActions, CardMedia, Rating, Typography } from '@mui/material';
 
 type Props = { product: SearchProductResponse };

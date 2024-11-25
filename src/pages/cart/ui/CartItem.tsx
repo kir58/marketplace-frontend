@@ -2,7 +2,7 @@ import React from 'react';
 import { Card, CardMedia, CardContent, Typography, Box, IconButton } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { removeFromCart, increaseQuantity, decreaseQuantity } from '../model/cartStore';
-import { SearchProductResponse } from '@shared/shared/model/products';
+import { SearchProductResponse } from '@shared/shared/model';
 
 export const CartItem: React.FC<{ item: { product: SearchProductResponse; quantity: number } }> = ({
   item,

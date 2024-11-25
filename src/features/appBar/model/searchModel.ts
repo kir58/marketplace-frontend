@@ -1,6 +1,6 @@
 import { createEffect, createEvent, createStore } from 'effector';
 import { products } from '@shared/shared/api';
-import { SearchProductResponse } from '@shared/shared/model/products';
+import { SearchProductResponse } from '@shared/shared/model';
 
 // Создаем событие для запуска поиска
 export const searchProductsTriggered = createEvent<string>();

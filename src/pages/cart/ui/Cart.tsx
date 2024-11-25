@@ -4,7 +4,7 @@ import { Typography, Button, Box, Divider, Stack, Container } from '@mui/materia
 import { useUnit } from 'effector-react';
 import { $cart, clearCart } from '../model/cartStore';
 import { CartItem } from '@shared/pages/cart/ui/CartItem';
-import { AppCustomBar } from '@shared/widgets/appBar/ui/AppBar';
+import { AppCustomBar } from '@shared/features/appBar/ui/AppBar';
 
 export const Cart: React.FC = () => {
   const cartItems = useUnit($cart);

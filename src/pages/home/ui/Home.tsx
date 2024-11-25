@@ -1,4 +1,4 @@
-import { AppCustomBar } from '@shared/widgets/appBar/ui/AppBar';
+import { AppCustomBar } from '@shared/features/appBar';
 import * as React from 'react';
 import { Container, Stack } from '@mui/material';
 

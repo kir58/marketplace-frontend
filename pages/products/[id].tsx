@@ -1,6 +1,6 @@
 import { GetServerSideProps } from 'next';
 import { Product } from '@shared/pages/product';
-import { SearchProductResponse } from '@shared/shared/model/products';
+import { SearchProductResponse } from '@shared/shared/model';
 import { products } from '@shared/shared/api';
 
 interface ProductPageProps {

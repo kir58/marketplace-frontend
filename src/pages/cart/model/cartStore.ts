@@ -1,6 +1,6 @@
 // cartStore.ts
 import { createEvent, createStore } from 'effector';
-import { SearchProductResponse } from '@shared/shared/model/products';
+import { SearchProductResponse } from '@shared/shared/model';
 
 // Тип для элемента корзины
 interface CartItem {

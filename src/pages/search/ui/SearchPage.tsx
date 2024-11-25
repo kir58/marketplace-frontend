@@ -1,7 +1,7 @@
-import { AppCustomBar } from '@shared/widgets/appBar/ui/AppBar';
+import { AppCustomBar } from '@shared/features/appBar/ui/AppBar';
 import * as React from 'react';
 import { Container, Stack } from '@mui/material';
-import { SearchProductsList } from '@shared/widgets/searchProducts';
+import { SearchProductsList } from '@shared/features/searchProducts';
 
 export const SearchPage = () => {
   return (
