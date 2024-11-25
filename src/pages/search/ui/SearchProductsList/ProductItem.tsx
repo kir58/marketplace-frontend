@@ -3,25 +3,21 @@ import { Card, CardMedia, CardContent, Typography, CardActions, Button, Box } fr
 import StarIcon from '@mui/icons-material/Star';
 import { SearchProductResponse } from '@shared/shared/model';
 import Link from 'next/link';
-import { $cart, addToCart } from '@shared/features/cart';
-import { useUnit } from 'effector-react';
+import { addToCart } from '@shared/features/cart';
 
 interface Props {
   product: SearchProductResponse;
 }
 
 export const ProductItem: React.FC<Props> = ({ product }) => {
-  const cartItems = useUnit($cart);
-
   const handleAddToCart = () => {
-    console.log(product, cartItems);
     addToCart(product);
   };
 
   return (
     <Card
       sx={{
-        maxWidth: 345,
+        maxWidth: 300,
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'space-between',

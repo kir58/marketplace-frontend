@@ -1,9 +1,14 @@
 import { SearchProductResponse } from '@shared/shared/model';
 import { Box, Button, Card, CardActions, CardMedia, Rating, Typography } from '@mui/material';
+import { addToCart } from '@shared/features/cart';
 
 type Props = { product: SearchProductResponse };
 
 export const ProductItem = ({ product }: Props) => {
+  const handleAddToCart = () => {
+    addToCart(product);
+  };
+
   return (
     <Box sx={{ padding: 2 }}>
       <Card sx={{ display: 'flex', flexDirection: 'row' }}>
@@ -50,7 +55,7 @@ export const ProductItem = ({ product }: Props) => {
 
           {/* Кнопки */}
           <CardActions>
-            <Button size="large" variant="contained" color="primary">
+            <Button size="large" variant="contained" color="primary" onClick={handleAddToCart}>
               Add to Cart
             </Button>
             <Button size="large" variant="outlined" color="primary">

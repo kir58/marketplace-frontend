@@ -2,8 +2,7 @@
 import { createEvent, createStore } from 'effector';
 import { SearchProductResponse } from '@shared/shared/model';
 
-// Тип для элемента корзины
-interface CartItem {
+export interface CartItem {
   product: SearchProductResponse;
   quantity: number;
 }
@@ -19,7 +18,6 @@ export const $cart = createStore<CartItem[]>([])
   .on(addToCart, (state, product) => {
     const existingItem = state.find((item) => item.product.id === product.id);
     if (existingItem) {
-      // Увеличиваем количество, если товар уже в корзине
       return state.map((item) =>
         item.product.id === product.id ? { ...item, quantity: item.quantity + 1 } : item,
       );
