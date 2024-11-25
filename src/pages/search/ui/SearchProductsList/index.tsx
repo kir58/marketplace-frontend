@@ -1,9 +1,9 @@
 import { useUnit } from 'effector-react';
-import { $error, $isLoading, $products } from '@shared/features/appBar/model/searchModel';
+import { $error, $isLoading, $products } from '@shared/widgets/layout';
 
 import { CircularProgress, Typography } from '@mui/material';
 import Box from '@mui/material/Box';
-import { ProductItem } from '@shared/features/searchProducts/ui/SearchProductsList/ProductItem';
+import { ProductItem } from './ProductItem';
 
 export const SearchProductsList = () => {
   const products = useUnit($products);

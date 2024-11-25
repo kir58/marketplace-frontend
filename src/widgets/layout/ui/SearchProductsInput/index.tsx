@@ -3,7 +3,7 @@ import { useUnit } from 'effector-react';
 import { useRouter } from 'next/router';
 
 import SearchIcon from '@mui/icons-material/Search';
-import { searchProductsTriggered } from '@shared/features/appBar/model/searchModel';
+import { searchProductsTriggered } from '../../index';
 import IconButton from '@mui/material/IconButton';
 import { Search, StyledInputBase } from './styled';
 

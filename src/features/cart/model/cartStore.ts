@@ -15,7 +15,6 @@ export const increaseQuantity = createEvent<string>();
 export const decreaseQuantity = createEvent<string>();
 export const clearCart = createEvent();
 
-// Стор корзины, начальное состояние - пустой массив
 export const $cart = createStore<CartItem[]>([])
   .on(addToCart, (state, product) => {
     const existingItem = state.find((item) => item.product.id === product.id);

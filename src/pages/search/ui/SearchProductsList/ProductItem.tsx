@@ -3,7 +3,7 @@ import { Card, CardMedia, CardContent, Typography, CardActions, Button, Box } fr
 import StarIcon from '@mui/icons-material/Star';
 import { SearchProductResponse } from '@shared/shared/model';
 import Link from 'next/link';
-import { $cart, addToCart } from '@shared/pages/cart/model/cartStore';
+import { $cart, addToCart } from '@shared/features/cart';
 import { useUnit } from 'effector-react';
 
 interface Props {

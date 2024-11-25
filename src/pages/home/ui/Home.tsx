@@ -1,14 +1,8 @@
-import { AppCustomBar } from '@shared/features/appBar';
+import { Layout } from '@shared/widgets/layout';
 import * as React from 'react';
-import { Container, Stack } from '@mui/material';
 
-export const Home = () => {
-  return (
-    <Stack gap={4}>
-      <AppCustomBar />
-      <Container>
-        <div>Здесь могла бы быть ваша реклама</div>
-      </Container>
-    </Stack>
-  );
-};
+export const Home = () => (
+  <Layout>
+    <div>Здесь могла бы быть ваша реклама</div>
+  </Layout>
+);

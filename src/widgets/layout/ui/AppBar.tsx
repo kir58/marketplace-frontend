@@ -13,8 +13,8 @@ import MailIcon from '@mui/icons-material/Mail';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import MoreIcon from '@mui/icons-material/MoreVert';
 import ShoppingBasketIcon from '@mui/icons-material/ShoppingBasket';
-import { SearchProductsInput } from '@shared/features/searchProducts';
 import Link from 'next/link';
+import { SearchProductsInput } from '@shared/widgets/layout/ui/SearchProductsInput';
 
 export const AppCustomBar = () => {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
