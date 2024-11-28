@@ -3,9 +3,10 @@ import { AppProps } from 'next/app';
 import { ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import { theme } from '@shared/app/theme';
-import { withEffectorNext } from '@shared/app/providers/withEffector';
+
 import { loadCartFromLocalStorage } from '@shared/features/cart';
 import { useEffect } from 'react';
+import { EffectorNext } from '@effector/next';
 
 function MyApp({ Component, pageProps }: AppProps) {
   useEffect(() => {
@@ -13,11 +14,13 @@ function MyApp({ Component, pageProps }: AppProps) {
   }, []);
 
   return (
-    <ThemeProvider theme={theme}>
-      <CssBaseline />
-      <Component {...pageProps} />
-    </ThemeProvider>
+    <EffectorNext values={pageProps.values}>
+      <ThemeProvider theme={theme}>
+        <CssBaseline />
+        <Component {...pageProps} />
+      </ThemeProvider>
+    </EffectorNext>
   );
 }
 
-export default withEffectorNext(MyApp);
+export default MyApp;
