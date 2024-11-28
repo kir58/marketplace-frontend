@@ -10,6 +10,7 @@
     "steiger": "steiger ./src --watch"
   },
   "dependencies": {
+    "@effector/next": "^0.7.0",
     "@mui/icons-material": "^6.1.8",
     "@mui/material": "^6.1.8",
     "axios": "^1.7.7",

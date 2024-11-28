@@ -11,7 +11,7 @@ export const searchProductsFx = createEffect(async (keyword: string) => {
 });
 
 // Создаем store для хранения состояния продуктов
-export const $products = createStore<SearchProductResponse[]>([])
+export const $products = createStore<SearchProductResponse[]>([], { sid: 'products' })
   .on(searchProductsFx.doneData, (_, products) => products)
   .reset(searchProductsTriggered); // Сброс store при новом поисковом запросе
 

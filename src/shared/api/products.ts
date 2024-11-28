@@ -8,7 +8,7 @@ const getAllProducts = async () => await axios.get<SearchProductResponse[]>(API_
 const getProductById = async (productId: string) =>
   await axios.get<SearchProductResponse>(`${API_URL}/${productId}`);
 
-const searchProducts = async (keyword: string | string[]): Promise<SearchProductResponse[]> => {
+const searchProducts = async (keyword: string): Promise<SearchProductResponse[]> => {
   const response: AxiosResponse<SearchProductResponse[]> = await axios.get(`${API_URL}/search`, {
     params: { keyword },
   });
