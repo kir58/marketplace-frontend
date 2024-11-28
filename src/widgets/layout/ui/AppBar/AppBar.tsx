@@ -116,7 +116,7 @@ export const AppCustomBar = () => {
 
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static">
+      <AppBar position="fixed">
         <Toolbar>
           <IconButton sx={{ padding: 0 }} component={Link} href="/">
             <AdbIcon sx={{ mr: 1, color: 'white' }} />

@@ -5,6 +5,8 @@ import { AppCustomBar } from './AppBar/AppBar';
 export const Layout: React.FC<React.PropsWithChildren> = ({ children }) => (
   <Stack gap={4}>
     <AppCustomBar />
-    <Container maxWidth={false}>{children}</Container>
+    <Container sx={{ marginTop: '64px' }} maxWidth={false}>
+      {children}
+    </Container>
   </Stack>
 );
