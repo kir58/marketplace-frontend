@@ -1,7 +1,7 @@
 import React from 'react';
 import { Typography, Button, Box, Card, CardContent, Stack, CardActions } from '@mui/material';
 
-import { useUnit } from 'effector-react';
+import { useUnit } from 'effector-react/effector-react.umd';
 import { $cart } from '../model/cartStore';
 import { CartItem } from './CartItem';
 
@@ -29,7 +29,7 @@ export const Cart: React.FC = () => {
             <Card sx={{ padding: 2 }}>
               <CardContent>
                 <Typography variant="h6" gutterBottom>
-                  Your cart: Goods(${goodsCount})
+                  Your cart: Goods({goodsCount})
                 </Typography>
                 <Typography variant="h5" color="primary">
                   Total: ${total.toFixed(2)}

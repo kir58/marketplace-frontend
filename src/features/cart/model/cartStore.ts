@@ -1,5 +1,5 @@
 // cartStore.ts
-import { createEvent, createStore } from 'effector';
+import { createEffect, createEvent, createStore, sample } from 'effector';
 import { SearchProductResponse } from '@shared/shared/model';
 
 export interface CartItem {
@@ -7,14 +7,15 @@ export interface CartItem {
   quantity: number;
 }
 
-// События для управления корзиной
 export const addToCart = createEvent<SearchProductResponse>();
 export const removeFromCart = createEvent<string>(); // по ID продукта
 export const increaseQuantity = createEvent<string>();
 export const decreaseQuantity = createEvent<string>();
 export const clearCart = createEvent();
 
-export const $cart = createStore<CartItem[]>([])
+export const loadCartFromLocalStorage = createEvent();
+
+export const $cart = createStore<CartItem[]>([], { sid: 'cart' })
   .on(addToCart, (state, product) => {
     const existingItem = state.find((item) => item.product.id === product.id);
     if (existingItem) {
@@ -38,4 +39,17 @@ export const $cart = createStore<CartItem[]>([])
         : item,
     ),
   )
+  .on(loadCartFromLocalStorage, () => {
+    const cart = localStorage.getItem('cart');
+    return cart ? JSON.parse(cart) : [];
+  })
   .reset(clearCart);
+
+export const saveCartFx = createEffect((cart: CartItem[]) => {
+  localStorage.setItem('cart', JSON.stringify(cart));
+});
+
+sample({
+  clock: $cart,
+  target: saveCartFx,
+});
