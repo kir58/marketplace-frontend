@@ -1,7 +1,7 @@
 import axios, { AxiosResponse } from 'axios';
 import { SearchProductResponse } from '@shared/shared/model';
 
-const API_URL = 'http://localhost:8080/api/products'; // Замените на URL вашего API
+const API_URL = 'http://localhost:8080/api/products';
 
 const getAllProducts = async () => await axios.get<SearchProductResponse[]>(API_URL);
 
@@ -13,7 +13,6 @@ const searchProducts = async (keyword: string): Promise<SearchProductResponse[]>
     params: { keyword },
   });
 
-  // Возвращаем только данные (массив продуктов)
   return response.data;
 };
 

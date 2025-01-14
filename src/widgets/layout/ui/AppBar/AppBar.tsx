@@ -57,12 +57,15 @@ export const AppCustomBar = () => {
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-      <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
+      <MenuItem component={Link} href="/sign-in">
+        Sign In
+      </MenuItem>
       <MenuItem onClick={handleMenuClose}>My account</MenuItem>
     </Menu>
   );
 
   const mobileMenuId = 'primary-search-account-menu-mobile';
+
   const renderMobileMenu = (
     <Menu
       anchorEl={mobileMoreAnchorEl}
@@ -99,7 +102,7 @@ export const AppCustomBar = () => {
         </IconButton>
         <p>Notifications</p>
       </MenuItem>
-      <MenuItem onClick={handleProfileMenuOpen}>
+      <MenuItem component={Link} href="/sign-in">
         <IconButton
           size="large"
           aria-label="account of current user"
@@ -109,7 +112,7 @@ export const AppCustomBar = () => {
         >
           <AccountCircle />
         </IconButton>
-        <p>Profile</p>
+        <p>Sign In</p>
       </MenuItem>
     </Menu>
   );
