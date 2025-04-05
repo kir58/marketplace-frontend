@@ -12,7 +12,7 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import { Copyright } from '@shared/shared/ui/Copyright';
 import { Container } from '@mui/material';
-import { user } from '@shared/shared/api/user';
+import { userApi } from '@shared/shared/api/user';
 
 const schema = z
   .object({
@@ -43,7 +43,7 @@ export const SignUp = () => {
   const onSubmit: SubmitHandler<FormData> = async (data) => {
     console.log('Форма успешно отправлена:', data);
     try {
-      await user.registration(data);
+      await userApi.registration(data);
       router.push('/sign-in');
     } catch (error: any) {
       setServerError(error.message);

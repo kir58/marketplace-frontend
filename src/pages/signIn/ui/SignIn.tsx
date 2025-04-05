@@ -1,4 +1,6 @@
 import * as React from 'react';
+import { useForm } from 'react-hook-form';
+import { useRouter } from 'next/router'; // Хук для маршрутизации
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -11,15 +13,36 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import Link from 'next/link';
 import { Copyright } from '@shared/shared/ui/Copyright';
+import { userApi } from '@shared/shared/api/user';
+
+type SignInFormInputs = {
+  username: string;
+  password: string;
+  remember: boolean;
+};
 
 export const SignIn = () => {
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
-    });
+  const router = useRouter();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<SignInFormInputs>();
+
+  const onSubmit = async (data: SignInFormInputs) => {
+    try {
+      // Логинимся (например, получаем токен с сервера)
+      await userApi.login({ username: data.username, password: data.password });
+
+      // Получаем данные пользователя после успешного входа
+      const userData = await userApi.getUserByNameOrEmail(data.username);
+
+      // Перенаправляем на страницу пользователя по пути /user/{username}
+      router.push(`/user/${data.username}`);
+    } catch (error) {
+      // Обработка ошибки, если вход не удался
+      console.error('Login failed', error);
+    }
   };
 
   return (
@@ -39,29 +62,31 @@ export const SignIn = () => {
         <Typography component="h1" variant="h5">
           Sign in
         </Typography>
-        <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+        <Box component="form" onSubmit={handleSubmit(onSubmit)} noValidate sx={{ mt: 1 }}>
           <TextField
             margin="normal"
-            required
             fullWidth
-            id="email"
-            label="Email Address"
-            name="email"
-            autoComplete="email"
+            label="Username"
             autoFocus
+            error={!!errors.username}
+            helperText={errors.username?.message}
+            {...register('username', {
+              required: 'Username is required',
+              minLength: { value: 3, message: 'Username must be at least 3 characters' },
+            })}
           />
           <TextField
             margin="normal"
-            required
             fullWidth
-            name="password"
             label="Password"
             type="password"
-            id="password"
             autoComplete="current-password"
+            error={!!errors.password}
+            helperText={errors.password?.message}
+            {...register('password', { required: 'Password is required' })}
           />
           <FormControlLabel
-            control={<Checkbox value="remember" color="primary" />}
+            control={<Checkbox color="primary" {...register('remember')} />}
             label="Remember me"
           />
           <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>

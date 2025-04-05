@@ -1,11 +1,19 @@
 import axios from 'axios';
 
-import { RegistrationPayload } from '@shared/shared/model/user';
+import { LoginPayload, RegistrationPayload, User } from '@shared/shared/model/user';
 
-const API_URL = 'http://localhost:9090/api/auth/register';
+const API_URL = 'http://localhost:9090/api/auth';
 
-const registration = async (payload: RegistrationPayload) => await axios.post(API_URL, payload);
+const registration = async (payload: RegistrationPayload) =>
+  await axios.post(`${API_URL}/register`, payload);
 
-export const user = {
+const login = async (payload: LoginPayload) => await axios.post(`${API_URL}/login`, payload);
+
+const getUserByNameOrEmail = async (usernameOrEmail: string) =>
+  await axios.get<User>(`${API_URL}/user/${usernameOrEmail}`);
+
+export const userApi = {
   registration,
+  login,
+  getUserByNameOrEmail,
 };
