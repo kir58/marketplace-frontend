@@ -31,16 +31,9 @@ export const SignIn = () => {
 
   const onSubmit = async (data: SignInFormInputs) => {
     try {
-      // Логинимся (например, получаем токен с сервера)
       await userApi.login({ username: data.username, password: data.password });
-
-      // Получаем данные пользователя после успешного входа
-      const userData = await userApi.getUserByNameOrEmail(data.username);
-
-      // Перенаправляем на страницу пользователя по пути /user/{username}
-      router.push(`/user/${data.username}`);
+      router.push(`/profile`);
     } catch (error) {
-      // Обработка ошибки, если вход не удался
       console.error('Login failed', error);
     }
   };
