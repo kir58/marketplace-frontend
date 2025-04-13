@@ -1,6 +1,7 @@
 import api from './axios';
 
 import { LoginPayload, RegistrationPayload, User } from '@shared/shared/model/user';
+import { AxiosRequestConfig } from 'axios';
 
 const API_URL = 'http://localhost:9090/api/auth';
 
@@ -12,8 +13,8 @@ const login = async (payload: LoginPayload) => await api.post(`${API_URL}/login`
 const getUserByNameOrEmail = async (usernameOrEmail: string) =>
   await api.get<User>(`${API_URL}/user/${usernameOrEmail}`);
 
-const getUserProfile = async () => {
-  const response = await api.get('/users/profile'); // Запрос на сервер для получения данных текущего пользователя
+const getUserProfile = async (config?: AxiosRequestConfig) => {
+  const response = await api.get('/users/profile', config);
   return response.data;
 };
 

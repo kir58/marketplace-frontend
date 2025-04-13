@@ -27,27 +27,28 @@ const ProfilePage: React.FC<ProfilePageProps> = ({ user, error }) => {
       <Typography variant="h4">Profile Information</Typography>
       <Typography variant="h6">Username: {user.username}</Typography>
       <Typography variant="body1">Email: {user.email}</Typography>
-      {/* Можно добавить другие данные пользователя */}
     </Box>
   );
 };
 
-// Получаем данные пользователя на сервере
-export const getServerSideProps: GetServerSideProps = async () => {
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const { req } = context;
+  const cookie = req.headers.cookie || '';
+
   try {
-    // Делаем запрос для получения данных текущего пользователя
-    const response = await userApi.getUserProfile(); // Запрос для получения данных текущего пользователя
+    const user = await userApi.getUserProfile({ headers: { cookie } });
     return {
       props: {
-        user: response.data,
+        user,
         error: null,
       },
     };
   } catch (err: any) {
+    console.error(err);
     return {
       props: {
         user: null,
-        error: `Failed to load user data ${err?.message}`,
+        error: `Failed to load user data: ${err?.message}`,
       },
     };
   }
