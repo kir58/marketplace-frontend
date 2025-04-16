@@ -64,16 +64,13 @@ export const AppCustomBar = () => {
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-      {user ? (
-        <>
-          {router.pathname !== '/profile' && (
-            <MenuItem onClick={handleMenuClose} component={Link} href="/profile">
-              Profile
-            </MenuItem>
-          )}
-          <MenuItem onClick={handleLogout}>Logout</MenuItem>
-        </>
-      ) : (
+      {user && router.pathname !== '/profile' && (
+        <MenuItem onClick={handleMenuClose} component={Link} href="/profile">
+          Profile
+        </MenuItem>
+      )}
+      {user && <MenuItem onClick={handleLogout}>Logout</MenuItem>}
+      {!user && (
         <MenuItem component={Link} href="/sign-in">
           Sign In
         </MenuItem>
@@ -119,18 +116,17 @@ export const AppCustomBar = () => {
         </IconButton>
         <p>Notifications</p>
       </MenuItem>
-      <MenuItem component={Link} href="/sign-in">
-        <IconButton
-          size="large"
-          aria-label="account of current user"
-          aria-controls="primary-search-account-menu"
-          aria-haspopup="true"
-          color="inherit"
-        >
-          <AccountCircle />
-        </IconButton>
-        <p>Sign In</p>
-      </MenuItem>
+      {user && router.pathname !== '/profile' && (
+        <MenuItem onClick={handleMenuClose} component={Link} href="/profile">
+          Profile
+        </MenuItem>
+      )}
+      {user && <MenuItem onClick={handleLogout}>Logout</MenuItem>}
+      {!user && (
+        <MenuItem component={Link} href="/sign-in">
+          Sign In
+        </MenuItem>
+      )}
     </Menu>
   );
 

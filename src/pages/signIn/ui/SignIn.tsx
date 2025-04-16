@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useForm } from 'react-hook-form';
+import { useForm, Controller } from 'react-hook-form';
 import { useRouter } from 'next/router';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
@@ -12,6 +12,9 @@ import Typography from '@mui/material/Typography';
 import Link from 'next/link';
 import { userApi } from '@shared/shared/api/user';
 import { Layout } from '@shared/widgets/layout';
+import { useState } from 'react';
+import { Alert } from '@mui/material';
+import { AxiosError } from 'axios';
 
 type SignInFormInputs = {
   username: string;
@@ -22,17 +25,23 @@ type SignInFormInputs = {
 export const SignIn = () => {
   const router = useRouter();
   const {
+    control,
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<SignInFormInputs>();
+  } = useForm<SignInFormInputs>({ defaultValues: { remember: true } });
 
+  const [error, setError] = useState<string | null>(null);
   const onSubmit = async (data: SignInFormInputs) => {
     try {
-      await userApi.login({ username: data.username, password: data.password });
+      await userApi.login({
+        username: data.username,
+        password: data.password,
+        remember: data.remember,
+      });
       router.push(`/profile`);
     } catch (error) {
-      console.error('Login failed', error);
+      setError((error as AxiosError).message ?? null);
     }
   };
 
@@ -75,13 +84,24 @@ export const SignIn = () => {
             helperText={errors.password?.message}
             {...register('password', { required: 'Password is required' })}
           />
-          <FormControlLabel
-            control={<Checkbox color="primary" {...register('remember')} />}
-            label="Remember me"
+          <Controller
+            name="remember"
+            control={control}
+            render={({ field }) => (
+              <FormControlLabel
+                control={<Checkbox {...field} checked={field.value} color="primary" />}
+                label="Remember me"
+              />
+            )}
           />
           <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
             Sign In
           </Button>
+          {error && (
+            <Alert severity="error" sx={{ marginY: 1 }}>
+              {error}
+            </Alert>
+          )}
           <Box display="flex" justifyContent="space-between">
             <Typography component={Link} href="/" sx={{ textDecoration: 'none' }} color="primary">
               Forgot password?
