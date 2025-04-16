@@ -18,9 +18,12 @@ const getUserProfile = async (config?: AxiosRequestConfig) => {
   return response.data;
 };
 
+const logout = () => api.post('/auth/logout');
+
 export const userApi = {
   registration,
   login,
   getUserByNameOrEmail,
   getUserProfile,
+  logout,
 };

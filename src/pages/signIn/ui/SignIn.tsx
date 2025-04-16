@@ -1,19 +1,17 @@
 import * as React from 'react';
 import { useForm } from 'react-hook-form';
-import { useRouter } from 'next/router'; // Хук для маршрутизации
+import { useRouter } from 'next/router';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
-import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
 import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
-import Container from '@mui/material/Container';
 import Link from 'next/link';
-import { Copyright } from '@shared/shared/ui/Copyright';
 import { userApi } from '@shared/shared/api/user';
+import { Layout } from '@shared/widgets/layout';
 
 type SignInFormInputs = {
   username: string;
@@ -39,8 +37,7 @@ export const SignIn = () => {
   };
 
   return (
-    <Container component="main" maxWidth="xs">
-      <CssBaseline />
+    <Layout>
       <Box
         sx={{
           marginTop: 8,
@@ -100,7 +97,6 @@ export const SignIn = () => {
           </Box>
         </Box>
       </Box>
-      <Copyright sx={{ mt: 8, mb: 4 }} />
-    </Container>
+    </Layout>
   );
 };

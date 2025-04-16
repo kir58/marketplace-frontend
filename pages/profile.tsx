@@ -1,12 +1,10 @@
-import React from 'react';
+// pages/profile.tsx
+import React, { useEffect } from 'react';
 import { GetServerSideProps } from 'next';
 import { userApi } from '@shared/shared/api/user';
-import { Box, Typography, CircularProgress, Alert } from '@mui/material';
-
-interface User {
-  username: string;
-  email: string;
-}
+import { Profile } from '@shared/pages/profile';
+import { useUserStore } from '@shared/features/user/model/store';
+import { User } from '@shared/shared/model/user';
 
 interface ProfilePageProps {
   user: User | null;
@@ -14,41 +12,30 @@ interface ProfilePageProps {
 }
 
 const ProfilePage: React.FC<ProfilePageProps> = ({ user, error }) => {
-  if (error) {
-    return <Alert severity="error">{error}</Alert>;
-  }
+  const setUser = useUserStore((state) => state.setUser);
 
-  if (!user) {
-    return <CircularProgress />;
-  }
+  useEffect(() => {
+    if (user) {
+      setUser(user); // Обновляем состояние в сторе
+    }
+  }, [user, setUser]);
 
-  return (
-    <Box sx={{ padding: 3 }}>
-      <Typography variant="h4">Profile Information</Typography>
-      <Typography variant="h6">Username: {user.username}</Typography>
-      <Typography variant="body1">Email: {user.email}</Typography>
-    </Box>
-  );
+  return <Profile user={user} error={error} />;
 };
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  const { req } = context;
-  const cookie = req.headers.cookie || '';
+  const cookie = context.req.headers.cookie || '';
 
   try {
-    const user = await userApi.getUserProfile({ headers: { cookie } });
+    const user = await userApi.getUserProfile({
+      headers: { cookie },
+    });
+    return { props: { user, error: null } };
+  } catch (e) {
     return {
-      props: {
-        user,
-        error: null,
-      },
-    };
-  } catch (err: any) {
-    console.error(err);
-    return {
-      props: {
-        user: null,
-        error: `Failed to load user data: ${err?.message}`,
+      redirect: {
+        destination: '/sign-in',
+        permanent: false,
       },
     };
   }

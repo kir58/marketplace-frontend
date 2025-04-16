@@ -7,10 +7,14 @@ import { theme } from '@shared/app/theme';
 import { loadCartFromLocalStorage } from '@shared/features/cart';
 import { useEffect } from 'react';
 import { EffectorNext } from '@effector/next';
+import { useUserStore } from '@shared/features/user/model/store';
 
 function MyApp({ Component, pageProps }: AppProps) {
+  const { fetchUser } = useUserStore();
+
   useEffect(() => {
     loadCartFromLocalStorage();
+    fetchUser();
   }, []);
 
   return (

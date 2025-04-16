@@ -15,11 +15,15 @@ import MoreIcon from '@mui/icons-material/MoreVert';
 import Link from 'next/link';
 import { SearchProductsInput } from '@shared/widgets/layout/ui/SearchProductsInput';
 import { CartIconButton } from '@shared/widgets/layout/ui/AppBar/CartIconButton';
+import { useLogout } from '@shared/features/user/model/logout';
+import { useUserStore } from '@shared/features/user/model/store';
+import { useRouter } from 'next/router';
 
 export const AppCustomBar = () => {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState<null | HTMLElement>(null);
 
+  const router = useRouter();
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
 
@@ -40,6 +44,9 @@ export const AppCustomBar = () => {
     setMobileMoreAnchorEl(event.currentTarget);
   };
 
+  const user = useUserStore((state) => state.user);
+  const handleLogout = useLogout();
+
   const menuId = 'primary-search-account-menu';
   const renderMenu = (
     <Menu
@@ -57,10 +64,20 @@ export const AppCustomBar = () => {
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-      <MenuItem component={Link} href="/sign-in">
-        Sign In
-      </MenuItem>
-      <MenuItem onClick={handleMenuClose}>My account</MenuItem>
+      {user ? (
+        <>
+          {router.pathname !== '/profile' && (
+            <MenuItem onClick={handleMenuClose} component={Link} href="/profile">
+              Profile
+            </MenuItem>
+          )}
+          <MenuItem onClick={handleLogout}>Logout</MenuItem>
+        </>
+      ) : (
+        <MenuItem component={Link} href="/sign-in">
+          Sign In
+        </MenuItem>
+      )}
     </Menu>
   );
 
