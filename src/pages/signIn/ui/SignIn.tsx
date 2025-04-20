@@ -12,7 +12,7 @@ import Typography from '@mui/material/Typography';
 import Link from 'next/link';
 import { userApi } from '@shared/shared/api/user';
 import { Layout } from '@shared/widgets/layout';
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Alert } from '@mui/material';
 import { AxiosError } from 'axios';
 
@@ -32,6 +32,7 @@ export const SignIn = () => {
   } = useForm<SignInFormInputs>({ defaultValues: { remember: true } });
 
   const [error, setError] = useState<string | null>(null);
+  const ref = useRef<HTMLFormElement>(null);
   const onSubmit = async (data: SignInFormInputs) => {
     try {
       await userApi.login({
@@ -45,6 +46,11 @@ export const SignIn = () => {
     }
   };
 
+  useEffect(() => {
+    if (ref.current) {
+      ref.current.focus();
+    }
+  }, []);
   return (
     <Layout>
       <Box
@@ -61,8 +67,14 @@ export const SignIn = () => {
         <Typography component="h1" variant="h5">
           Sign in
         </Typography>
-        <Box component="form" onSubmit={handleSubmit(onSubmit)} noValidate sx={{ mt: 1 }}>
+        <Box
+          component="form"
+          onSubmit={handleSubmit(onSubmit)}
+          noValidate
+          sx={{ mt: 1, maxWidth: '500px' }}
+        >
           <TextField
+            inputRef={ref}
             margin="normal"
             fullWidth
             label="Username"
